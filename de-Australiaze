@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Taking input and switching month and days"
+echo "input file is $1"
+#file=$1
+
+cd ~/Downloads/
+
+# Replacing whitespace on input filename and assigning new filename for input
+for f in "$1"; do mv "$f" `echo $f | tr ' ' '_'`; spacelessInputName=$( echo $f | tr ' ' '_');done
+
+echo "NEWVAR is $spacelessInputName"
+
+#if ! [[ -f /usr/local/bin/de-Australiaze ]];then
+#	echo "Importing de-Australiaze program from Downloads folder"
+#	sudo mv ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
+#fi
+
+fpath=~/Downloads/$spacelessInputName
+echo "this is fpath $fpath"
+
+# Command Substitution
+#finalPath=$(echo $destinationPath | sed "s/\ /\\\ /")
+
+#echo "AFTER SED destinationPath = $destinationPath"
+#echo "FINAL PATH= $finalPath"
+
+cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/"
+#mv ~/Downloads/\'$file\' ~/Downloads/DATECHAGE_$file
