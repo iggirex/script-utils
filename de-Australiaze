@@ -2,28 +2,49 @@
 
 echo "Taking input and switching month and days"
 echo "input file is $1"
-#file=$1
 
-cd ~/Downloads/
+if ! [[ -f /usr/local/bin/de-Australiaze ]];then
+    echo "RUNNING FIRST TIME SETUP, WILL NOT DE-AUSTRALIAIZE ANY FILE YET"
+	echo "Importing de-Australiaze program from Downloads folder to /usr/local/bin"
+	sudo mv ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
+else
+    cd ~/Downloads/
 
-# Replacing whitespace on input filename and assigning new filename for input
-for f in "$1"; do mv "$f" `echo $f | tr ' ' '_'`; spacelessInputName=$( echo $f | tr ' ' '_');done
+    # Replacing whitespace on input filename and assigning new filename for input
+    for f in "$1"; do mv "$f" `echo $f | tr ' ' '_'`; spacelessInputName=$( echo $f | tr ' ' '_');done
+    echo "Original file name is $1"
+    echo "fixed file name is $spacelessInputName"
 
-echo "NEWVAR is $spacelessInputName"
+    fpath=~/Downloads/$spacelessInputName
+    echo "this is fpath $fpath"
 
-#if ! [[ -f /usr/local/bin/de-Australiaze ]];then
-#	echo "Importing de-Australiaze program from Downloads folder"
-#	sudo mv ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
-#fi
 
-fpath=~/Downloads/$spacelessInputName
-echo "this is fpath $fpath"
+    cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
+    #mv ~/Downloads/\'$file\' ~/Downloads/DATECHAGE_$file
+fi
 
-# Command Substitution
-#finalPath=$(echo $destinationPath | sed "s/\ /\\\ /")
 
-#echo "AFTER SED destinationPath = $destinationPath"
-#echo "FINAL PATH= $finalPath"
 
-cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/"
-#mv ~/Downloads/\'$file\' ~/Downloads/DATECHAGE_$file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 'MEMBER
+    # Command Substitution
+    #finalPath=$(echo $destinationPath | sed "s/\ /\\\ /")
