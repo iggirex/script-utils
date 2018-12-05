@@ -5,8 +5,12 @@ echo "input file is $1"
 
 if ! [[ -f /usr/local/bin/de-Australiaze ]];then
     echo "RUNNING FIRST TIME SETUP, WILL NOT DE-AUSTRALIAIZE ANY FILE YET"
-	echo "Importing de-Australiaze program from Downloads folder to /usr/local/bin"
-	sudo mv ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
+
+    echo "Trying to import program from here to bin"
+    sudo cp ./de-Australiaze /usr/local/bin/de-Australiaze
+
+	echo "Trying to importing de-Australiaze program from Downloads folder to /usr/local/bin"
+	sudo cp ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
 else
     cd ~/Downloads/
 
@@ -18,8 +22,12 @@ else
     fpath=~/Downloads/$spacelessInputName
     echo "this is fpath $fpath"
 
+    # works on Linux but not on Mac
+    #cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
 
-    cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
+    # works on Mac (Linux??)
+    cat $fpath | sed "s/,\([0-9?][0-9]\)\/\([0-9?][0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
+
     #mv ~/Downloads/\'$file\' ~/Downloads/DATECHAGE_$file
 fi
 
