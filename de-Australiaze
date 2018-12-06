@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "Taking input and switching month and days"
-echo "input file is $1"
-
 if ! [[ -f /usr/local/bin/de-Australiaze ]];then
     echo "RUNNING FIRST TIME SETUP, WILL NOT DE-AUSTRALIAIZE ANY FILE YET"
 
@@ -12,47 +9,52 @@ if ! [[ -f /usr/local/bin/de-Australiaze ]];then
 	echo "Trying to importing de-Australiaze program from Downloads folder to /usr/local/bin"
 	sudo cp ~/Downloads/de-Australiaze /usr/local/bin/de-Australiaze
 else
+
+    echo ""
+    echo "#################################################"
+    echo "#################################################"
+    echo "#####                                        ####"
+    echo "#####                                        ####"
+    echo "#####       Welcome to de-Australiaze        ####"
+    echo "#####                                        ####"
+    echo "#####                                        ####"
+    echo "#################################################"
+    echo "#################################################"
+
+    echo ""
+    echo ">> Taking input and switching month and days"
+    echo ">> input file is $1"
+
     cd ~/Downloads/
 
     # Replacing whitespace on input filename and assigning new filename for input
     for f in "$1"; do mv "$f" `echo $f | tr ' ' '_'`; spacelessInputName=$( echo $f | tr ' ' '_');done
-    echo "Original file name is $1"
-    echo "fixed file name is $spacelessInputName"
 
     fpath=~/Downloads/$spacelessInputName
-    echo "this is fpath $fpath"
+    newSuffix="DA_"
 
     # works on Linux but not on Mac
     #cat $fpath | sed "s/,\([0-9]\?[0-9]\)\/\([0-9]\?[0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
 
     # works on Mac (Linux??)
-    cat $fpath | sed "s/,\([0-9?][0-9]\)\/\([0-9?][0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > DATE_CHANGE_FILE.csv
+    cat $fpath | sed "s/,\([0-9?][0-9]\)\/\([0-9?][0-9]\)\/\([0-9]\{4\}\)/,\2\/\1\/\3/" > "$newSuffix$1"
 
-    #mv ~/Downloads/\'$file\' ~/Downloads/DATECHAGE_$file
+    echo ""
+    echo ">> Your file is ready, mate"
+    echo ">> It's in Downloads folder and should be called $newSuffix$1"
+    echo ""
+
+    echo "#################################################"
+    echo "#################################################"
+    echo "#####                                        ####"
+    echo "#####                                        ####"
+    echo "#####   We hope you enjoyed your ride here   ####"
+    echo "#####         at de-Australiaize             ####"
+    echo "#####                                        ####"
+    echo "#####     And remember to throw another      ####"
+    echo "#####     another shrimp on the barbie       ####"
+    echo "#####                                        ####"
+    echo "#################################################"
+    echo "#################################################"
+
 fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 'MEMBER
-    # Command Substitution
-    #finalPath=$(echo $destinationPath | sed "s/\ /\\\ /")
